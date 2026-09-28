@@ -1,16 +1,20 @@
 const menuToggle = document.querySelector(".menu-toggle");
 const menu = document.querySelector(".menu");
+const conteudo = document.getElementById("conteudo");
 
 menuToggle.addEventListener("click", function () {
   menu.classList.toggle("ativo");
 
   const menuAberto = menu.classList.contains("ativo");
+
   menuToggle.setAttribute("aria-expanded", menuAberto);
+  menuToggle.setAttribute(
+    "aria-label",
+    menuAberto ? "Fechar menu de navegação" : "Abrir menu de navegação",
+  );
 });
 
-const conteudo = document.getElementById("conteudo");
-
-function carregarPagina(pagina) {
+function carregarPagina(pagina, moverFoco = false) {
   if (pagina === "inicio") {
     conteudo.innerHTML = templateInicio();
   }
@@ -23,6 +27,10 @@ function carregarPagina(pagina) {
   if (pagina === "cadastro") {
     conteudo.innerHTML = templateCadastro();
     iniciarFormulario();
+  }
+
+  if (moverFoco) {
+    conteudo.focus();
   }
 }
 
@@ -41,7 +49,13 @@ document.addEventListener("click", function (event) {
 
   const pagina = link.dataset.pagina;
 
-  carregarPagina(pagina);
+  carregarPagina(pagina, true);
 
   window.location.hash = pagina;
+
+  if (menu.classList.contains("ativo")) {
+    menu.classList.remove("ativo");
+    menuToggle.setAttribute("aria-expanded", "false");
+    menuToggle.setAttribute("aria-label", "Abrir menu de navegação");
+  }
 });

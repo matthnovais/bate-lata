@@ -165,35 +165,55 @@ function templateCadastro() {
     <h2 class="col-12">Cadastro de participação</h2>
 
     <form class="col-12" id="form-cadastro">
+      <p id="campos-obrigatorios">
+        Os campos marcados com * são obrigatórios.
+      </p>
+
       <fieldset>
         <legend>Dados pessoais</legend>
 
-        <label for="nome">Nome:</label>
-        <input type="text" id="nome" name="nome" required />
+        <label for="nome">Nome: *</label>
+        <input
+          type="text"
+          id="nome"
+          name="nome"
+          autocomplete="name"
+          required
+        />
 
-        <label for="email">E-mail:</label>
-        <input type="email" id="email" name="email" required />
+        <label for="email">E-mail: *</label>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          autocomplete="email"
+          required
+        />
 
-        <label for="telefone">Telefone:</label>
+        <label for="telefone">Telefone: *</label>
         <input
           type="tel"
           id="telefone"
           name="telefone"
+          autocomplete="tel"
           required
           maxlength="15"
           pattern="\\([0-9]{2}\\) [0-9]{4,5}-[0-9]{4}"
           placeholder="(00) 00000-0000"
+          aria-describedby="ajuda-telefone"
         />
+        <small id="ajuda-telefone">Formato: (00) 00000-0000</small>
 
-        <label for="nascimento">Data de Nascimento:</label>
+        <label for="nascimento">Data de nascimento: *</label>
         <input
           type="date"
           id="nascimento"
           name="nascimento"
+          autocomplete="bday"
           required
         />
 
-        <label for="cpf">CPF:</label>
+        <label for="cpf">CPF: *</label>
         <input
           type="text"
           id="cpf"
@@ -202,28 +222,34 @@ function templateCadastro() {
           maxlength="14"
           pattern="[0-9]{3}\\.[0-9]{3}\\.[0-9]{3}-[0-9]{2}"
           placeholder="000.000.000-00"
+          aria-describedby="ajuda-cpf"
         />
+        <small id="ajuda-cpf">Formato: 000.000.000-00</small>
       </fieldset>
 
       <fieldset>
         <legend>Endereço</legend>
 
-        <label for="cep">CEP:</label>
+        <label for="cep">CEP: *</label>
         <input
           type="text"
           id="cep"
           name="cep"
+          autocomplete="postal-code"
           required
           maxlength="9"
           pattern="[0-9]{5}-[0-9]{3}"
           placeholder="00000-000"
+          aria-describedby="ajuda-cep"
         />
+        <small id="ajuda-cep">Formato: 00000-000</small>
 
-        <label for="endereco">Endereço:</label>
+        <label for="endereco">Endereço: *</label>
         <input
           type="text"
           id="endereco"
           name="endereco"
+          autocomplete="street-address"
           required
         />
       </fieldset>
@@ -231,8 +257,7 @@ function templateCadastro() {
       <fieldset>
         <legend>Participação</legend>
 
-        <label for="participacao">Tipo de participação:</label>
-
+        <label for="participacao">Tipo de participação: *</label>
         <select name="participacao" id="participacao" required>
           <option value="">Selecione</option>
           <option value="doador">Doador</option>
@@ -241,14 +266,14 @@ function templateCadastro() {
         </select>
 
         <label for="observacoes">Observações:</label>
-
+        
         <textarea
           name="observacoes"
           id="observacoes"
         ></textarea>
 
-        <button type="submit">Enviar</button>
-        
+        <button type="submit">Enviar cadastro</button>
+
         <p id="mensagem-formulario" aria-live="polite"></p>
       </fieldset>
     </form>

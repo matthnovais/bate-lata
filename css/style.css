@@ -44,6 +44,32 @@ body {
   line-height: 1.6;
 }
 
+.skip-link {
+  position: absolute;
+  top: -100px;
+  left: var(--espaco-sm);
+  z-index: 2000;
+  padding: var(--espaco-sm);
+  background-color: var(--cor-branco);
+  color: var(--cor-primaria-escura);
+  font-weight: bold;
+  border: 2px solid var(--cor-primaria-escura);
+  border-radius: 0.5rem;
+}
+
+.skip-link:focus {
+  top: var(--espaco-sm);
+}
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 3px solid #f5c451;
+  outline-offset: 3px;
+}
+
 /* Espaçamento estrutural */
 header,
 nav,
@@ -114,8 +140,12 @@ nav a {
   font-size: var(--fonte-sm);
 }
 
-nav a:hover {
-  color: var(--cor-secundaria);
+nav a:hover,
+nav a:focus-visible {
+  color: var(--cor-branco);
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 0.25rem;
 }
 
 /* Conteúdo principal */
@@ -497,7 +527,7 @@ button:focus-visible {
 }
 
 .campo-erro {
-  border: 2px solid #c94c4c;
+  border: 2px solid #a52a2a;
 }
 
 .mensagem-erro {
@@ -505,11 +535,21 @@ button:focus-visible {
   margin-top: 0.25rem;
   margin-bottom: 0.75rem;
   font-size: 0.875rem;
-  color: #c94c4c;
+  color: #a52a2a;
 }
 
 .mensagem-sucesso {
   margin-top: 1rem;
   font-weight: bold;
   color: #1f6f50;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition: none !important;
+    animation: none !important;
+  }
 }
