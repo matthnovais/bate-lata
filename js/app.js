@@ -1,6 +1,11 @@
 const menuToggle = document.querySelector(".menu-toggle");
 const menu = document.querySelector(".menu");
 const conteudo = document.getElementById("conteudo");
+const botaoTema = document.getElementById("alternar-tema");
+
+/* =========================
+   MENU MOBILE
+========================= */
 
 menuToggle.addEventListener("click", function () {
   menu.classList.toggle("ativo");
@@ -13,6 +18,56 @@ menuToggle.addEventListener("click", function () {
     menuAberto ? "Fechar menu de navegação" : "Abrir menu de navegação",
   );
 });
+
+/* =========================
+   MODO ESCURO
+========================= */
+
+function atualizarBotaoTema(modoEscuro) {
+  if (modoEscuro) {
+    botaoTema.textContent = "☀️";
+    botaoTema.setAttribute("aria-label", "Ativar modo claro");
+    botaoTema.setAttribute("title", "Ativar modo claro");
+    botaoTema.setAttribute("aria-pressed", "true");
+  } else {
+    botaoTema.textContent = "🌙";
+    botaoTema.setAttribute("aria-label", "Ativar modo escuro");
+    botaoTema.setAttribute("title", "Ativar modo escuro");
+    botaoTema.setAttribute("aria-pressed", "false");
+  }
+}
+
+function aplicarTemaSalvo() {
+  const temaSalvo = localStorage.getItem("tema");
+
+  if (temaSalvo === "escuro") {
+    document.body.classList.add("dark-mode");
+    atualizarBotaoTema(true);
+  } else {
+    document.body.classList.remove("dark-mode");
+    atualizarBotaoTema(false);
+  }
+}
+
+botaoTema.addEventListener("click", function () {
+  document.body.classList.toggle("dark-mode");
+
+  const modoEscuro = document.body.classList.contains("dark-mode");
+
+  if (modoEscuro) {
+    localStorage.setItem("tema", "escuro");
+  } else {
+    localStorage.setItem("tema", "claro");
+  }
+
+  atualizarBotaoTema(modoEscuro);
+});
+
+aplicarTemaSalvo();
+
+/* =========================
+   SPA
+========================= */
 
 function carregarPagina(pagina, moverFoco = false) {
   if (pagina === "inicio") {
@@ -38,6 +93,10 @@ const paginaInicial = window.location.hash.replace("#", "") || "inicio";
 
 carregarPagina(paginaInicial);
 
+/* =========================
+   NAVEGAÇÃO DA SPA
+========================= */
+
 document.addEventListener("click", function (event) {
   const link = event.target.closest("[data-pagina]");
 
@@ -56,6 +115,9 @@ document.addEventListener("click", function (event) {
   if (menu.classList.contains("ativo")) {
     menu.classList.remove("ativo");
     menuToggle.setAttribute("aria-expanded", "false");
-    menuToggle.setAttribute("aria-label", "Abrir menu de navegação");
+    menuToggle.setAttribute(
+      "aria-label",
+      "Abrir menu de navegação",
+    );
   }
 });
