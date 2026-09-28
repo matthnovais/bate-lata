@@ -17,34 +17,54 @@ function iniciarFormulario() {
     return;
   }
 
-  // Exibe uma mensagem de erro abaixo do campo
   function mostrarErro(campo, texto) {
     removerErro(campo);
 
     campo.classList.add("campo-erro");
+    campo.setAttribute("aria-invalid", "true");
 
     const erro = document.createElement("span");
+    const idErro = `erro-${campo.id}`;
+
+    erro.id = idErro;
     erro.classList.add("mensagem-erro");
     erro.textContent = texto;
+
+    const descricaoExistente = campo.getAttribute("aria-describedby");
+
+    campo.setAttribute(
+      "aria-describedby",
+      descricaoExistente ? `${descricaoExistente} ${idErro}` : idErro,
+    );
 
     campo.insertAdjacentElement("afterend", erro);
   }
 
-  // Remove a mensagem e o estilo de erro
   function removerErro(campo) {
     campo.classList.remove("campo-erro");
+    campo.removeAttribute("aria-invalid");
 
-    const proximoElemento = campo.nextElementSibling;
+    const idErro = `erro-${campo.id}`;
+    const erro = document.getElementById(idErro);
 
-    if (
-      proximoElemento &&
-      proximoElemento.classList.contains("mensagem-erro")
-    ) {
-      proximoElemento.remove();
+    if (erro) {
+      erro.remove();
+    }
+
+    const descricoes = campo
+      .getAttribute("aria-describedby")
+      ?.split(" ")
+      .filter(function (id) {
+        return id !== idErro;
+      });
+
+    if (descricoes && descricoes.length > 0) {
+      campo.setAttribute("aria-describedby", descricoes.join(" "));
+    } else {
+      campo.removeAttribute("aria-describedby");
     }
   }
 
-  // Recupera dados salvos anteriormente
   const dadosSalvos = localStorage.getItem("cadastroBateLata");
 
   if (dadosSalvos) {
@@ -61,7 +81,6 @@ function iniciarFormulario() {
     observacoes.value = dados.observacoes || "";
   }
 
-  // Máscara do CPF
   cpf.addEventListener("input", function () {
     let valor = cpf.value.replace(/\D/g, "").slice(0, 11);
 
@@ -74,7 +93,6 @@ function iniciarFormulario() {
     removerErro(cpf);
   });
 
-  // Máscara do telefone
   telefone.addEventListener("input", function () {
     let valor = telefone.value.replace(/\D/g, "").slice(0, 11);
 
@@ -86,7 +104,6 @@ function iniciarFormulario() {
     removerErro(telefone);
   });
 
-  // Máscara do CEP
   cep.addEventListener("input", function () {
     let valor = cep.value.replace(/\D/g, "").slice(0, 8);
 
@@ -97,14 +114,7 @@ function iniciarFormulario() {
     removerErro(cep);
   });
 
-  // Remove o erro quando o usuário corrige os demais campos
-  const campos = [
-    nome,
-    email,
-    nascimento,
-    endereco,
-    participacao,
-  ];
+  const campos = [nome, email, nascimento, endereco, participacao];
 
   campos.forEach(function (campo) {
     campo.addEventListener("input", function () {
@@ -112,17 +122,14 @@ function iniciarFormulario() {
     });
   });
 
-  // Validação no envio do formulário
   formulario.addEventListener("submit", function (event) {
     event.preventDefault();
 
     let formularioValido = true;
 
-    // Limpa mensagem anterior
     mensagem.textContent = "";
     mensagem.classList.remove("mensagem-sucesso");
 
-    // Nome
     if (nome.value.trim() === "") {
       mostrarErro(nome, "Informe o seu nome.");
       formularioValido = false;
@@ -130,7 +137,6 @@ function iniciarFormulario() {
       removerErro(nome);
     }
 
-    // E-mail
     if (email.value.trim() === "") {
       mostrarErro(email, "Informe o seu e-mail.");
       formularioValido = false;
@@ -141,51 +147,37 @@ function iniciarFormulario() {
       removerErro(email);
     }
 
-    // Telefone
     if (!telefone.validity.valid) {
       mostrarErro(
         telefone,
-        "Informe um telefone válido. Exemplo: (11) 99999-9999."
+        "Informe um telefone válido. Exemplo: (11) 99999-9999.",
       );
       formularioValido = false;
     } else {
       removerErro(telefone);
     }
 
-    // Data de nascimento
     if (nascimento.value === "") {
-      mostrarErro(
-        nascimento,
-        "Informe a sua data de nascimento."
-      );
+      mostrarErro(nascimento, "Informe a sua data de nascimento.");
       formularioValido = false;
     } else {
       removerErro(nascimento);
     }
 
-    // CPF
     if (!cpf.validity.valid) {
-      mostrarErro(
-        cpf,
-        "Informe o CPF no formato 000.000.000-00."
-      );
+      mostrarErro(cpf, "Informe o CPF no formato 000.000.000-00.");
       formularioValido = false;
     } else {
       removerErro(cpf);
     }
 
-    // CEP
     if (!cep.validity.valid) {
-      mostrarErro(
-        cep,
-        "Informe o CEP no formato 00000-000."
-      );
+      mostrarErro(cep, "Informe o CEP no formato 00000-000.");
       formularioValido = false;
     } else {
       removerErro(cep);
     }
 
-    // Endereço
     if (endereco.value.trim() === "") {
       mostrarErro(endereco, "Informe o seu endereço.");
       formularioValido = false;
@@ -193,23 +185,23 @@ function iniciarFormulario() {
       removerErro(endereco);
     }
 
-    // Tipo de participação
     if (participacao.value === "") {
-      mostrarErro(
-        participacao,
-        "Selecione um tipo de participação."
-      );
+      mostrarErro(participacao, "Selecione um tipo de participação.");
       formularioValido = false;
     } else {
       removerErro(participacao);
     }
 
-    // Interrompe o envio caso exista algum erro
     if (!formularioValido) {
+      const primeiroCampoComErro = formulario.querySelector(".campo-erro");
+
+      if (primeiroCampoComErro) {
+        primeiroCampoComErro.focus();
+      }
+
       return;
     }
 
-    // Cria o objeto com os dados válidos
     const dadosCadastro = {
       nome: nome.value.trim(),
       email: email.value.trim(),
@@ -222,10 +214,9 @@ function iniciarFormulario() {
       observacoes: observacoes.value.trim(),
     };
 
-   // Salva no localStorage
-    localStorage.setItem(
-      "cadastroBateLata",
-      JSON.stringify(dadosCadastro)
-    );
+    localStorage.setItem("cadastroBateLata", JSON.stringify(dadosCadastro));
+
+    mensagem.textContent = "Cadastro realizado com sucesso.";
+    mensagem.classList.add("mensagem-sucesso");
   });
 }
