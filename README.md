@@ -29,3 +29,33 @@ O projeto está organizado em diretórios separados para arquivos HTML, CSS, Jav
 ## Versionamento
 
 O versionamento do projeto utiliza Git e segue uma estrutura baseada no GitFlow, com as branches `main`, `develop` e `feature/`.
+
+## Pré-requisitos
+
+Para executar o projeto Bate Lata, é necessário possuir um navegador web moderno, como Google Chrome, Microsoft Edge ou Mozilla Firefox.
+
+Para desenvolvimento e edição do código, recomenda-se a utilização do Visual Studio Code. A extensão Live Server pode ser utilizada para executar a aplicação em um servidor local durante o desenvolvimento.
+
+## Instalação e execução
+
+O projeto foi desenvolvido utilizando HTML5, CSS3 e JavaScript puro, portanto não possui dependências externas que necessitem de instalação.
+
+Para obter o projeto por meio do Git, utilize:
+
+```bash
+git clone https://github.com/matthnovais/bate-lata.git
+```
+
+Após clonar o repositório, abra a pasta do projeto no Visual Studio Code e execute o arquivo `index.html` com a extensão Live Server.
+
+## Build
+
+A aplicação não utiliza ferramentas de build ou frameworks que necessitem de compilação. Os arquivos HTML, CSS e JavaScript são interpretados diretamente pelo navegador.
+
+Dessa forma, não é necessário executar um comando de build para utilizar a aplicação.
+
+## Testes
+
+Atualmente, o projeto não possui uma suíte de testes automatizados.
+
+As funcionalidades são verificadas manualmente no navegador, incluindo navegação entre páginas, responsividade, funcionamento do menu, abertura do modal, validação do formulário, máscaras de entrada e persistência dos dados utilizando LocalStorage.
