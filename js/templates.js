@@ -72,7 +72,7 @@ function templateInicio() {
       <h2>Quem somos</h2>
 
       <img
-        src="../imagens/batelata1.webp"
+        src="imagens/batelata1.webp"
         alt="Crianças participando de uma oficina de percussão com instrumentos feitos de latas reaproveitadas"
       />
 
