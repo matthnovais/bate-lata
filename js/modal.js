@@ -1,4 +1,4 @@
-function iniciarModal() {
+export function iniciarModal() {
   const abrirModal = document.getElementById("abrir-modal");
   const fecharModal = document.getElementById("fechar-modal");
   const modalAjuda = document.getElementById("modal-ajuda");
