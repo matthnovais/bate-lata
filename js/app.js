@@ -1,3 +1,12 @@
+import {
+  templateInicio,
+  templateProjetos,
+  templateCadastro,
+} from "./templates.js";
+
+import { iniciarModal } from "./modal.js";
+import { iniciarFormulario } from "./formulario.js";
+
 const menuToggle = document.querySelector(".menu-toggle");
 const menu = document.querySelector(".menu");
 const conteudo = document.getElementById("conteudo");

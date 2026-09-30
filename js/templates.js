@@ -47,26 +47,24 @@ function criarCardProjeto(projeto) {
     <article>
       <h3>${projeto.titulo}</h3>
 
-      ${
-        projeto.badge
-          ? `<span class="badge ${projeto.classeBadge}">${projeto.badge}</span>`
-          : ""
-      }
+      ${projeto.badge
+      ? `<span class="badge ${projeto.classeBadge}">${projeto.badge}</span>`
+      : ""
+    }
 
       <p>${projeto.descricao}</p>
 
-      ${
-        projeto.link
-          ? `<a href="${projeto.link}" data-pagina="cadastro">
+      ${projeto.link
+      ? `<a href="${projeto.link}" data-pagina="cadastro">
               ${projeto.textoLink}
             </a>`
-          : ""
-      }
+      : ""
+    }
     </article>
   `;
 }
 
-function templateInicio() {
+export function templateInicio() {
   return `
     <section class="col-12">
       <h2>Quem somos</h2>
@@ -109,7 +107,7 @@ function templateInicio() {
   `;
 }
 
-function templateProjetos() {
+export function templateProjetos() {
   const cardsProjetos = projetos
     .map(function (projeto) {
       return criarCardProjeto(projeto);
@@ -160,7 +158,7 @@ function templateProjetos() {
   `;
 }
 
-function templateCadastro() {
+export function templateCadastro() {
   return `
     <h2 class="col-12">Cadastro de participação</h2>
 
@@ -266,7 +264,7 @@ function templateCadastro() {
         </select>
 
         <label for="observacoes">Observações:</label>
-        
+
         <textarea
           name="observacoes"
           id="observacoes"

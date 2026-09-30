@@ -1,4 +1,4 @@
-function iniciarFormulario() {
+export function iniciarFormulario() {
   const formulario = document.getElementById("form-cadastro");
 
   const nome = document.getElementById("nome");
