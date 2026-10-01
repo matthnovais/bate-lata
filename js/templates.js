@@ -47,19 +47,21 @@ function criarCardProjeto(projeto) {
     <article>
       <h3>${projeto.titulo}</h3>
 
-      ${projeto.badge
-      ? `<span class="badge ${projeto.classeBadge}">${projeto.badge}</span>`
-      : ""
-    }
+      ${
+        projeto.badge
+          ? `<span class="badge ${projeto.classeBadge}">${projeto.badge}</span>`
+          : ""
+      }
 
       <p>${projeto.descricao}</p>
 
-      ${projeto.link
-      ? `<a href="${projeto.link}" data-pagina="cadastro">
+      ${
+        projeto.link
+          ? `<a href="${projeto.link}" data-pagina="cadastro">
               ${projeto.textoLink}
             </a>`
-      : ""
-    }
+          : ""
+      }
     </article>
   `;
 }
@@ -70,7 +72,7 @@ export function templateInicio() {
       <h2>Quem somos</h2>
 
       <img
-        src="imagens/batelata1.webp"
+        src="${import.meta.env.BASE_URL}imagens/batelata1.webp"
         alt="Crianças participando de uma oficina de percussão com instrumentos feitos de latas reaproveitadas"
       />
 
