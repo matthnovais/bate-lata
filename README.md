@@ -149,3 +149,9 @@ A aplicação utiliza a configuração `base: "/bate-lata/"` no Vite para garant
 **Site publicado:** https://matthnovais.github.io/bate-lata/
 
 **Repositório:** https://github.com/matthnovais/bate-lata
+
+### Compatibilidade da SPA com o GitHub Pages
+
+A aplicação utiliza roteamento baseado em hash, com rotas como `#/projetos` e `#/cadastro`. Nessa abordagem, o trecho após o símbolo `#` é interpretado pelo JavaScript diretamente no navegador, sem gerar uma nova requisição de página ao servidor.
+
+Essa estratégia garante a compatibilidade da SPA com a hospedagem estática do GitHub Pages, dispensando configurações adicionais de rewrite para rotas internas. Assim, o utilizador pode atualizar a página ou aceder diretamente a uma rota sem provocar erros de página não encontrada.
